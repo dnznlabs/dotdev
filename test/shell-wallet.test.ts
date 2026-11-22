@@ -555,15 +555,6 @@ describe('shell-wallet — the header control (jsdom, compiled shell.js + shell-
     expect(keydownCalls).toBe(1);
   });
 
-  it('the gear button closes the wallet menu too, not just the other two panels', () => {
-    bootHeader();
-    document.getElementById('wallet-btn')!.click();
-
-    document.getElementById('settings-btn')!.click();
-
-    expect(document.getElementById('wallet-panel')!.classList.contains('open')).toBe(false);
-  });
-
   it('init returns a cleanup closure that releases every subscription the stubs handed out', () => {
     installFakeEthereum();
     loadShell();
@@ -600,21 +591,16 @@ describe('shell-wallet — the header control (jsdom, compiled shell.js + shell-
 describe('shell.ts source — one shared dropdown closer (D-20)', () => {
   const shell = readFileSync(resolve(__dirname, '../src/shell.ts'), 'utf-8');
 
-  it('declares closeAllDropdowns once at module scope and calls it from at least four sites', () => {
+  it('declares closeAllDropdowns once at module scope and calls it from at least three sites', () => {
     expect(shell.match(/^function closeAllDropdowns\(/gm)).toHaveLength(1);
-    expect(shell.split('\n').filter((line) => line.includes('closeAllDropdowns()')).length).toBeGreaterThanOrEqual(4);
+    const callSites = shell
+      .split('\n')
+      .filter((line) => line.includes('closeAllDropdowns()') && !line.includes('function '));
+    expect(callSites.length).toBeGreaterThanOrEqual(3);
   });
 
   it('derives the three id pairs from one place, so only dropdownEntries knows them', () => {
     expect(shell.match(/^function dropdownEntries\(/gm)).toHaveLength(1);
-  });
-
-  it('wireSettingsButton no longer closes panels by id', () => {
-    const body = shell.match(/function wireSettingsButton\([\s\S]*?\n\}/)?.[0];
-    expect(body).toBeDefined();
-    expect(body).toContain('closeAllDropdowns()');
-    expect(body).not.toContain("'app-dropdown'");
-    expect(body).not.toContain("'theme-panel'");
   });
 });
 

@@ -5,15 +5,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // Source-string assertion style, matching test/main.test.ts — this describe block does
 // not execute shell code. A second, jsdom-executing describe block (01-04 Task 3) follows
 // below and exercises the real compiled src/shell.js.
-describe('shell — settings button', () => {
+describe('shell — settings route', () => {
   const shell = readFileSync(resolve(__dirname, '../src/shell.ts'), 'utf-8');
-
-  it('adds a gear button with id="settings-btn" inside .header-actions', () => {
-    expect(shell).toContain('id="settings-btn"');
-    const headerActions = shell.match(/<div class="header-actions">([\s\S]*?)<\/div>`;/)?.[1];
-    expect(headerActions).toBeDefined();
-    expect(headerActions).toContain('id="settings-btn"');
-  });
 
   it('adds a settings entry to DAPP_TITLES starting with "DNZN // "', () => {
     const dappTitlesBlock = shell.match(/const DAPP_TITLES:[^{]*\{([\s\S]*?)\};/)?.[1];
@@ -21,17 +14,6 @@ describe('shell — settings button', () => {
     const settingsEntry = dappTitlesBlock!.match(/settings:\s*'([^']+)'/)?.[1];
     expect(settingsEntry).toBeDefined();
     expect(settingsEntry!.startsWith('DNZN // ')).toBe(true);
-  });
-
-  it("navigates to '/settings' on click", () => {
-    expect(shell).toMatch(/navigate\('\/settings'\)/);
-  });
-
-  it('defines wireSettingsButton and calls it from initShellChrome', () => {
-    expect(shell).toMatch(/function wireSettingsButton\(/);
-    const initBlock = shell.match(/function initShellChrome\(\) \{([\s\S]*?)\n\}/)?.[1];
-    expect(initBlock).toBeDefined();
-    expect(initBlock).toContain('wireSettingsButton(');
   });
 
   it('subscribes to both dx:dapp:enabled and dx:dapp:disabled, and defines buildNavHTML, wireNavLinks and refreshNavMenu (01-04 / SET-09 / review A1)', () => {
@@ -191,14 +173,12 @@ describe('shell — nav refresh on dapp enable/disable (01-04, SET-09, review fi
     const before = {
       share: document.getElementById('share-btn'),
       theme: document.getElementById('theme-panel-trigger'),
-      settings: document.getElementById('settings-btn'),
       wallet: document.getElementById('wallet-btn'),
       walletPanel: document.getElementById('wallet-panel'),
       walletMenu: document.getElementById('wallet-menu'),
     };
     expect(before.share).not.toBeNull();
     expect(before.theme).not.toBeNull();
-    expect(before.settings).not.toBeNull();
     expect(before.wallet).not.toBeNull();
     expect(before.walletPanel).not.toBeNull();
     expect(before.walletMenu).not.toBeNull();
@@ -207,7 +187,6 @@ describe('shell — nav refresh on dapp enable/disable (01-04, SET-09, review fi
 
     expect(document.getElementById('share-btn')).toBe(before.share);
     expect(document.getElementById('theme-panel-trigger')).toBe(before.theme);
-    expect(document.getElementById('settings-btn')).toBe(before.settings);
     expect(document.getElementById('wallet-btn')).toBe(before.wallet);
     expect(document.getElementById('wallet-panel')).toBe(before.walletPanel);
     expect(document.getElementById('wallet-menu')).toBe(before.walletMenu);
