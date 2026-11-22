@@ -18,7 +18,6 @@ function initShellChrome() {
   wireDropdowns();
   wireShareButton();
   wireThemePanel(dx, theme);
-  wireSettingsButton(dx);
   window.DnznWallet?.init(dx);
   wireNavigation(dx);
   dx.events.on("dx:dapp:enabled", () => refreshNavMenu(dx));
@@ -88,9 +87,6 @@ function renderHeader(_dx, manifests) {
           <button data-scheme="zorgz-4065"><span class="theme-panel-swatch" style="background:#808080"></span>zorgz-4065</button>
         </div>
       </div>
-      <button class="settings-btn" id="settings-btn" title="Settings">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      </button>
       <div class="wallet-panel" id="wallet-panel">
         <button class="wallet-btn" id="wallet-btn" title="Wallet">
           <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><rect x="15" y="13" width="4" height="3" rx="1"/></svg>
@@ -102,7 +98,7 @@ function renderHeader(_dx, manifests) {
 function renderFooter() {
   const footerEl = document.getElementById("shell-footer");
   if (!footerEl) return;
-  footerEl.innerHTML = `by <strong>Denizen.</strong> // dnzn.wei`;
+  footerEl.innerHTML = `by <strong>Denizen.</strong> // dxnzn.wei`;
 }
 function dropdownEntries() {
   return [
@@ -152,14 +148,6 @@ function wireShareButton() {
       this.classList.add("copied");
       setTimeout(() => this.classList.remove("copied"), 1500);
     }).catch(() => void 0);
-  });
-}
-function wireSettingsButton(dx) {
-  const settingsBtn = document.getElementById("settings-btn");
-  if (!settingsBtn) return;
-  settingsBtn.addEventListener("click", () => {
-    closeAllDropdowns();
-    dx.router.navigate("/settings");
   });
 }
 function wireThemePanel(dx, theme) {
@@ -226,7 +214,6 @@ function updateActiveNav(dx) {
     const isActive = currentPath === route || currentPath.startsWith(`${route}/`);
     link.classList.toggle("active", isActive);
   });
-  document.getElementById("settings-btn")?.classList.toggle("active", currentPath === "/settings");
   const manifests = dx.getEnabledManifests();
   let matched = null;
   for (const m of manifests) {
