@@ -12,6 +12,28 @@
     <div class="card-title">den.ɪ.zən // development</div>
 
     <div class="project-entry">
+      <div class="project-title"><a href="https://rake.dnzn.dev" target="_blank" rel="noopener noreferrer">DNZN // RAKE</a> <span class="project-tag">rake.dnzn.dev</span></div>
+      <p>Transparent fund distribution on Ethereum. A distribution is one address with a published table of beneficiaries — anything it receives, ETH or ERC-20, is paid out by that table when anyone calls <code>distribute()</code>.</p>
+      <ul class="project-features">
+        <li>Every change to the table is queued behind a public time lock — beneficiaries see it coming</li>
+        <li>Same addresses on Ethereum, Base, Sepolia and Base Sepolia</li>
+        <li>Dapp and widget served from the chain by a contract of their own</li>
+      </ul>
+      <p class="project-note">Alpha software, unaudited — source on <a href="https://github.com/dnznlabs/rake" target="_blank" rel="noopener noreferrer">github</a>.</p>
+    </div>
+
+    <div class="project-entry">
+      <div class="project-title"><a href="https://github.com/dnznlabs/gw44" target="_blank" rel="noopener noreferrer">DNZN // GW44</a> <span class="project-tag">web gateway</span></div>
+      <p>A web gateway for contract-hosted, on-chain dapps — front ends a contract serves itself through <a href="https://eip.tools/eip/8244" target="_blank" rel="noopener noreferrer">ERC-8244</a> <code>html()</code> and <a href="https://eips.ethereum.org/EIPS/eip-5219" target="_blank" rel="noopener noreferrer">ERC-5219</a> <code>request()</code>.</p>
+      <ul class="project-features">
+        <li>Two static files, ~16 KB — self-host it or put it on a CDN</li>
+        <li>A service worker calls the contract from the visitor's browser — no gateway server, nothing cached</li>
+        <li>Each contract gets its own origin, so one dapp's document cannot touch another's</li>
+      </ul>
+      <p class="project-note">Alpha software, not externally audited.</p>
+    </div>
+
+    <div class="project-entry">
       <div class="project-title"><a href="https://github.com/dxnzn/dxkit" target="_blank" rel="noopener noreferrer">DNZN // DxKit</a> <span class="project-tag">microframework</span></div>
       <p>A headless microframework for building composable dapps. Routing, lifecycle management, event bus, plugin registry — zero DOM ownership.</p>
     </div>

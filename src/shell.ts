@@ -91,7 +91,7 @@ function renderHeader(_dx, manifests) {
   headerEl.innerHTML = `
     <div class="app-dropdown" id="app-dropdown">
       <button class="app-dropdown-trigger" id="app-trigger" title="Menu">
-        <img src="assets/zorgz-2625.svg" alt="" class="title-icon">
+        <img src="assets/dnzn-labs.png" alt="" class="title-icon">
         <h1>DNZN // DEV</h1>
       </button>
       <div class="app-dropdown-menu" id="app-menu">
@@ -267,19 +267,6 @@ function updateThemeExtras(currentTheme: string, resolved: 'light' | 'dark') {
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   if (metaTheme) {
     metaTheme.setAttribute('content', isLight ? '#ffffff' : DARK_BG[currentTheme] || '#0e0e0e');
-  }
-
-  // Favicon swap
-  const favicon = document.querySelector('link[rel="icon"]');
-  if (favicon) {
-    favicon.setAttribute('href', `assets/${currentTheme}.svg`);
-  }
-
-  // Title icon swap via CSS content: url() already handles this via theme.css
-  // but we need to update the src for the initial load
-  const titleIcon = document.querySelector('.title-icon');
-  if (titleIcon) {
-    titleIcon.src = `assets/${currentTheme}.svg`;
   }
 }
 
