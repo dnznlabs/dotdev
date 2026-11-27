@@ -57,10 +57,6 @@ header {
 }
 .app-dropdown-divider { border: none; border-top: 1px solid var(--border); margin: 0.35rem 0; }
 
-/* ── TITLE-ICON PER-THEME (CSS content swap) ── */
-[data-theme="zorgz-156"] .title-icon { content: url('../assets/zorgz-156.svg'); }
-[data-theme="zorgz-2625"] .title-icon { content: url('../assets/zorgz-2625.svg'); }
-[data-theme="zorgz-4065"] .title-icon { content: url('../assets/zorgz-4065.svg'); }
 
 /* ── THEME PANEL (combined mode + scheme dropdown) ── */
 .theme-panel { position: relative; z-index: 100; }
